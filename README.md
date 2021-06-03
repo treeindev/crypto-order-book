@@ -1,5 +1,6 @@
 # Crypto Order Book
 ![Image of the tool](https://i.ibb.co/Y7jmjFD/screenshot.png)
+
 This is a tool to visualize the order book of a couple of crypto currencies: Bitcoin and Ether. 
 
 This tool implements the following component tree:
