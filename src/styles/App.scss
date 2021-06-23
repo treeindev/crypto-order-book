@@ -1,0 +1,12 @@
+@import "./constants.scss";
+
+.application {
+    padding: 30px;
+    max-width: $layout_max_size;
+    margin: 0 auto;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+}

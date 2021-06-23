@@ -1,32 +1,30 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import {  } from '@reduxjs/toolkit'
 import { CURRENCY_GROUPS, DEFAULT_CURRENCY } from '../models/constants';
-import { ActionGroupActivate, ActionCurrencyActivate, ActionUpdateOrders } from '../models/actions';
+import { ActionGroupActivate, ActionDefault, ActionUpdateOrders, ActionCurrencyActivate } from '../models/actions';
 import { AppState, OrderData } from '../models/state';
 
 // Slice that will handle updates to the app state.
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    active_currency: DEFAULT_CURRENCY,
-    active_group: CURRENCY_GROUPS[DEFAULT_CURRENCY][0],
-    group_list: CURRENCY_GROUPS[DEFAULT_CURRENCY],
+    user_currency: DEFAULT_CURRENCY,
+    active_group: CURRENCY_GROUPS[DEFAULT_CURRENCY.id][0],
+    group_list: CURRENCY_GROUPS[DEFAULT_CURRENCY.id],
     asks: {},
     bids: {}
   } as AppState,
   reducers: {
     activateCurrency: (state: AppState, action: ActionCurrencyActivate) => {
       // Update currency value.
-      state.active_currency = action.payload;
+      state.user_currency = action.payload;
       // Update the list of available groups for the new currency.
-      state.group_list = CURRENCY_GROUPS[action.payload];
-      // The default grouping will be the first item on the array.
-      state.active_group = CURRENCY_GROUPS[action.payload][0];
+      state.group_list = CURRENCY_GROUPS[action.payload.id];
     },
     activateGroup: (state: AppState, action: ActionGroupActivate) => {
       state.active_group = action.payload
     },
-    resetOrderBook: (state: AppState, action: {payload: any; type: string;}) => {
+    resetOrderBook: (state: AppState, action: ActionDefault) => {
       state.asks = {};
       state.bids = {};
     },

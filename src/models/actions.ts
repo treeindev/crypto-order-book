@@ -1,11 +1,18 @@
-export type ActionGroupActivate = {
+import { Currency } from "./constants"
+
+export type ActionDefault = {
     type: string,
-    payload: number
+    payload: string
 }
 
 export type ActionCurrencyActivate = {
     type: string,
-    payload: string
+    payload: Currency
+}
+
+export type ActionGroupActivate = {
+    type: string,
+    payload: number
 }
 
 export type ActionUpdateOrders = {

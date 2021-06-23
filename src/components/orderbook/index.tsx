@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { OrderData, OrderElement } from '../models/state';
+import { AppState, OrderData, OrderElement } from '../../models/state';
 import './orderbook.scss';
 
 function OrderBook() {
-    const bids = useSelector((state: any) => state.bids);
-    const asks = useSelector((state: any) => state.asks);
+    const { bids, asks } = useSelector((state: AppState) => { return { bids: state.bids, asks: state.asks } });
+    debugger;
     const displayLimit = 20;
   
     const getItemList = (orders: {[key: string]: OrderData}, reversed: boolean): Array<OrderElement> => {
@@ -35,7 +35,6 @@ function OrderBook() {
         // Get the highest total and calculate the current order percentage.
         const percentage = Math.round(total / highestTotal * 100);
   
-        // list.push(<Order reference={i} price={price} size={size} total={total} percent={percentage} reversed={reversed}></Order>);
         list.push({
           price: price,
           size: size,
@@ -55,7 +54,7 @@ function OrderBook() {
             <li>SIZE</li>
             <li>PRICE</li>
           </ul>
-          <ul className="order_book">
+          <ul className="order_book" data-testid="orderbook_bids">
             {getItemList(bids, false).map((order: OrderElement, index: number) => {
               return <li className={`bg-green-${order.percentage}`} key={index}>
                 <span>{order.total}</span><span>{order.size}</span><span className="price">{order.price}</span>
@@ -69,7 +68,7 @@ function OrderBook() {
             <li>SIZE</li>
             <li>TOTAL</li>
           </ul>
-          <ul className="order_book">
+          <ul className="order_book" data-testid="orderbook_asks">
             {getItemList(asks, true).map((order: OrderElement, index: number) => {
               return <li className={`bg-red-${order.percentage}`} key={index}>
                 <span className="price">{order.price}</span><span>{order.size}</span><span>{order.total}</span>

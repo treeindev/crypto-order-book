@@ -1,0 +1,30 @@
+@import "../../styles/constants.scss";
+
+.gallery {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 50px;
+    margin-top: 40px;
+
+    .crypto {
+        border: 2px solid transparent;
+        padding: 20px 10px;
+        cursor: pointer;
+        margin-right: 10px;
+
+        &:hover {
+            border: 2px solid #ffffff87;
+        }
+
+        &.active {
+            background-color: transparentize($colour_main, 0.7%);
+            border: 2px solid $colour_main;
+        }
+    }
+
+    img {
+        width: 100%;
+        max-width: 170px;
+    }
+}

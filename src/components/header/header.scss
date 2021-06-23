@@ -1,0 +1,19 @@
+@import "../../styles/constants.scss";
+
+.logotype {
+    width: 100%;
+    display: block;
+    max-width: 500px;
+}
+
+h1 {
+    font-size: 1.5em;
+
+    @media (min-width: $breakpoints_tablet) {
+        font-size: 2em;
+    }
+}
+
+h1 b, h4 b {
+    color: $colour_main;
+}

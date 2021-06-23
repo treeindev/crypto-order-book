@@ -1,5 +1,7 @@
+import { Currency } from "./constants"
+
 export type AppState = {
-    active_currency: string,
+    user_currency: Currency,
     active_group: number,
     group_list: Array<number>,
     asks: {[key: string]: OrderData},

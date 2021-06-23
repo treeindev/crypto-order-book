@@ -1,11 +1,16 @@
 @use 'sass:math';
+@import "../../styles/constants.scss";
 
 .book_container {
-    background-color: #02091f;
+    background-color: $colour_background;
     padding: 5px;
     margin-top: 30px;
-    display: flex;
-    justify-content: center;
+    display: block;
+
+    @media (min-width: $breakpoints_tablet) {
+        display: flex;
+        justify-content: center;
+    }
 
     .header {
         list-style: none;
@@ -23,12 +28,12 @@
 
     .order_book {
         margin-top: 20px;
-        font-family: "Lucida Console", "Courier New", monospace;
+        font-family: $layout_font_terminal;
 
         li {
             display: flex;
             justify-content: space-around;
-            margin-bottom: 10px;
+            margin-bottom: 3px;
 
             span {
                 text-align: left;
@@ -39,17 +44,21 @@
     }
 
     .order_section {
-        width: 50%;
+        width: 100%;
+
+        @media (min-width: $breakpoints_tablet) {
+            width: 50%;
+        }
 
         &.bids {
             .price {
-                color: #44e644;
+                color: $colour_price_green;
             }
         }
 
         &.asks {
             .price {
-                color: #f33232;
+                color: $colour_price_red;
             }
         }
     }
@@ -61,17 +70,14 @@
     }
 
     // Generate backgrounds
-    $base-green: #00ff1433;
-    $base-red: #ff000040;
-
     @for $i from 0 through 100 {
         $colored-percentage: percentage(math.div($i,100));
         $empty-percentage: percentage(math.div(100-$i,100));
         .bg-green-#{$i} {
-            background: linear-gradient(90deg, transparent $empty-percentage, $base-green 0);
+            background: linear-gradient(90deg, transparent $empty-percentage, $colour_price_bg_green 0);
         }
         .bg-red-#{$i} {
-            background: linear-gradient(-90deg, transparent $colored-percentage, $base-red 0);
+            background: linear-gradient(-90deg, transparent $colored-percentage, $colour_price_bg_red 0);
         }
     }
 

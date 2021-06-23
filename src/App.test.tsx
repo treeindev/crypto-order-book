@@ -4,13 +4,13 @@ import { Provider } from 'react-redux';
 import { store } from './store/main';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(
+test('Application can render correctly', () => {
+  render(
     <Provider store={store}>
       <App />
     </Provider>
   );
 
-  const linkElement = screen.getByText(/Crypto Order Book/i);
+  const linkElement = screen.getByText(/Active currency:/i);
   expect(linkElement).toBeInTheDocument();
 });
