@@ -1,4 +1,4 @@
-import { Currency } from "./constants"
+import { Currency, ModalState } from "./state"
 
 export type ActionDefault = {
     type: string,
@@ -23,4 +23,14 @@ export type ActionUpdateOrders = {
         product_id?: string,
         feed?: string
     }
+}
+
+export type ActionSocketError = {
+    type: string,
+    payload: ModalState
+}
+
+export type ActionLoading = {
+    type: string,
+    payload: boolean
 }

@@ -17,3 +17,16 @@ h1 {
 h1 b, h4 b {
     color: $colour_main;
 }
+
+.qa {
+    display: flex;
+    align-items: center;
+    text-decoration: underline;
+    cursor: pointer;
+    justify-content: flex-end;
+
+    img {
+        margin-left: 15px;
+        width: 30px;
+    }
+}

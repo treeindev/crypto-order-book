@@ -1,11 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { AppState, OrderData, OrderElement } from '../../models/state';
+import { State, OrderData, OrderElement } from '../../models/state';
 import './orderbook.scss';
 
 function OrderBook() {
-    const { bids, asks } = useSelector((state: AppState) => { return { bids: state.bids, asks: state.asks } });
-    debugger;
+    const { bids, asks } = useSelector((state: State) => { return { bids: state.crypto.bids, asks: state.crypto.asks } });
     const displayLimit = 20;
   
     const getItemList = (orders: {[key: string]: OrderData}, reversed: boolean): Array<OrderElement> => {

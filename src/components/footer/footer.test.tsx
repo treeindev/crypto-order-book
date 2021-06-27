@@ -3,12 +3,16 @@ import { render, fireEvent } from '@testing-library/react';
 import Footer from './index';
 
 import { TEST_USER_CURRENCY } from "../../tests/mocks";
-import { AVAILABLE_CURRENCIES } from "../../models/constants";
+import { AVAILABLE_CURRENCIES } from "../../utils/constants";
 
 describe("Component testing", () => {
     // Mock Redux's selector
     const selector = jest.spyOn(reactRedux, 'useSelector');
     const dispatcher = jest.spyOn(reactRedux, 'useDispatch');
+    const mockedState = {
+      userCurrency: TEST_USER_CURRENCY,
+      exchangeRatio: "12345"
+    }
 
     beforeEach(() => {
         // Mocks have to be cleared before each execution.
@@ -17,7 +21,7 @@ describe("Component testing", () => {
     })
     
     it("Should render the footer correctly", () => {
-        selector.mockReturnValue(TEST_USER_CURRENCY);
+        selector.mockReturnValue(mockedState);
         const { getByTestId } = render(<Footer />);
 
         expect(getByTestId("footer_currency_name").textContent)
@@ -27,7 +31,7 @@ describe("Component testing", () => {
     });
 
     it("Should render the crypto collection", () => {
-        selector.mockReturnValue(TEST_USER_CURRENCY);
+        selector.mockReturnValue(mockedState);
         const { getByTestId } = render(<Footer />);
 
         expect(getByTestId("footer_crypto_gallery").children.length)
@@ -36,7 +40,7 @@ describe("Component testing", () => {
 
     it("Should dispatch action for changing the crypto selection when user clicks", () => {
         const dispatchTestFunction = jest.fn();
-        selector.mockReturnValue(TEST_USER_CURRENCY);
+        selector.mockReturnValue(mockedState);
         dispatcher.mockReturnValue(dispatchTestFunction);
         const { getByTestId } = render(<Footer />);
 
@@ -53,5 +57,13 @@ describe("Component testing", () => {
             .toEqual(AVAILABLE_CURRENCIES[1].name);
         expect(getByTestId("footer_currency_id").textContent)
             .toEqual(AVAILABLE_CURRENCIES[1].id);
+    });
+
+    it("Should show the exchange ratio for current currency state", () => {
+        selector.mockReturnValue(mockedState);
+        const { getByTestId } = render(<Footer />);
+
+        expect(getByTestId("footer_exchange_ratio").textContent)
+            .toEqual(mockedState.exchangeRatio)
     });
 })

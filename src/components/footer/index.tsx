@@ -1,13 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Currency, AVAILABLE_CURRENCIES } from '../../models/constants';
-import { AppState } from '../../models/state';
+import { AVAILABLE_CURRENCIES } from '../../utils/constants';
+import { Currency, State } from '../../models/state';
 import { activateCurrency } from '../../store/main';
 import './footer.scss';
 
 function Footer() {
   const dispatcher = useDispatch();
-  const userCurrency: Currency = useSelector((state: AppState) => state.user_currency);
+  const {userCurrency, exchangeRatio} = useSelector((state: State) => { return {
+      userCurrency: state.crypto.user_currency,
+      exchangeRatio: state.crypto.exchange_ratio
+    }});
 
   const swapCurrency = (currency: Currency) => {
     dispatcher(activateCurrency(currency));
@@ -15,15 +18,16 @@ function Footer() {
   
   return(
     <div className="bottom">
-      <h4>Active currency: <b data-testid="footer_currency_name">{userCurrency.name}</b>
-      <br />Conversion rate: <b data-testid="footer_currency_id">{userCurrency.id}</b></h4>
+      <h4>Active Currency: <b data-testid="footer_currency_name">{userCurrency.name}</b><br />
+      Currency Exchange Reference: <b data-testid="footer_currency_id">{userCurrency.id}</b><br />
+      Exchange rate: <b data-testid="footer_exchange_ratio">{exchangeRatio}</b></h4>
       <h4>Select the Crypto to show on the Crypto Book:</h4>
       <div className="gallery" data-testid="footer_crypto_gallery">
         {AVAILABLE_CURRENCIES.map( (currency: Currency, index: number) => { return(
           <div key={index} onClick={()=>{swapCurrency(currency)}}
                className={`crypto ${userCurrency.id === currency.id ? "active" : ""}`}
           >
-            <img src={currency.logo} />
+            <img alt={currency.name} src={currency.logo} />
           </div>
         )})}
       </div>

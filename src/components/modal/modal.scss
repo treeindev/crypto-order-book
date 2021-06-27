@@ -1,0 +1,82 @@
+@import "../../styles/constants.scss";
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999999999;
+    background-color: rgba(0, 0, 0, 0.58);
+    width: 100vw;
+    height: 100vh;
+    transition: all 0.3s ease-in-out;
+    visibility: hidden;
+    display: none;
+
+    &.active {
+        display: block;
+        visibility: visible;
+    }
+
+    .frame {
+		background-color: #ffffff;
+		width: 95%;
+		display: block;
+		margin: 0 auto;
+		border: 1px solid #c6c6c6;
+		position: relative;
+		top: 45%;
+		transform: translateY(-50%);
+        max-width: 575px;
+
+        .container {
+			padding: 3% 5%;
+        }
+    }
+
+    &.danger {
+        h3 {
+            color: $colour_price_red;
+        }
+    }
+
+    &.default {
+        h3 {
+            color: darken($colour_main, 20%);
+        }
+    }
+
+    p {
+        color: $colour_dark;
+    }
+
+    .close {
+        position: absolute;
+        right: 10px;
+        top: 15px;
+        width: 32px;
+        height: 32px;
+        opacity: 0.7;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &:before, &:after {
+            position: absolute;
+            left: 15px;
+            content: ' ';
+            height: 23px;
+            width: 2px;
+            background-color: #333;
+        }
+
+        &:before {
+            transform: rotate(45deg);
+        }
+
+        &:after {
+            transform: rotate(-45deg);
+        }
+    }
+}
